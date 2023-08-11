@@ -2,11 +2,11 @@ version: "3.5"
 services:
   geth:
     build:
-      context: ./geth
+      context: op-geth
       args:
-        UPSTREAM_VERSION: v1.11.6
+        UPSTREAM_VERSION: latest
     volumes:
-      - "lukso:/lukso"
+      - "data:/data"
     ports:
       - "33141:33141/tcp"
       - "33141:33141/udp"
