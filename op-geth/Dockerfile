@@ -1,7 +1,7 @@
 ARG UPSTREAM_VERSION
 
 # TODO: DockerHub looks out of date for Optimism. We might need to build from source 
-FROM ethereumoptimism/op-geth:${UPSTREAM_VERSION}
+FROM https://us-docker.pkg.dev/oplabs-tools-artifacts/images/op-geth:${UPSTREAM_VERSION}
 
 RUN mkdir /config
 

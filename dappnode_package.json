@@ -1,7 +1,7 @@
 {
   "name": "op-geth.dnp.dappnode.eth",
   "version": "0.1.0",
-  "upstreamVersion": "latest",
+  "upstreamVersion": "v1.101105.3",
   "upstreamRepo": "ethereum-optimism/op-geth",
   "upstreamArg": "UPSTREAM_VERSION",
   "shortDescription": "Geth execution client for Optimism",
