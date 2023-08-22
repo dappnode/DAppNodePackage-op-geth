@@ -15,6 +15,5 @@ services:
       - EXTRA_FLAGS
       - P2P_PORT=33141
       - SYNCMODE=snap
-    image: "geth.lukso-geth.dnp.dappnode.eth:0.1.0"
 volumes:
-  lukso: {}
+  data: {}
