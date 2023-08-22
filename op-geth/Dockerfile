@@ -5,7 +5,7 @@ FROM ethereumoptimism/op-geth:${UPSTREAM_VERSION}
 
 RUN mkdir /config
 
-COPY /security/op-node/jwtsecret.hex /config/jwtsecret.hex
+COPY /security/jwtsecret.hex /config/jwtsecret.hex
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN apk update && apk add curl &&\ 
