@@ -10,9 +10,19 @@
 # Max peers set to 0 to disable peer discovery (will be enabled in the future for snap sync)
 # TODO: Should we add --http.api and --ws.api flags?
 
+if [ "$ENABLE_HISTORICAL_RPC" = "true" ]; then
+  echo "[INFO - entrypoint] Enabling historical RPC"
+  EXTRA_FLAGS="--rollup.historicalrpc $HISTORICAL_RPC_URL --gcmode archive"
+else
+  echo "[INFO - entrypoint] Historical RPC is disabled"
+  EXTRA_FLAGS="--gcmode full"
+fi
+
+mkdir -p preloaded-mainnet-data && wget -O /preloaded-mainnet-data/mainnet-bedrock.tar.zst https://datadirs.optimism.io/mainnet-bedrock.tar.zst
+
 echo "[INFO - entrypoint] Starting Geth"
 exec geth --datadir /data \
-  --rollup.historicalrpc $L2_NODE_RPC_URL \
+  --rollup.historicalrpc $HISTORICAL_RPC_URL \
   --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
   --rollup.disabletxpoolgossip \
   --ws \
@@ -32,4 +42,5 @@ exec geth --datadir /data \
   --nodiscover \
   --maxpeers 0 \
   --syncmode full \
+  --networkid=10 \
   ${EXTRA_FLAGS}

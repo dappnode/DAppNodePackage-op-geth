@@ -12,8 +12,9 @@ services:
       - EXTRA_FLAGS
       - P2P_PORT=33141
       - SYNCMODE=snap
-      - "L2_NODE_RPC_URL=http://op-l2geth.dappnode:8545"
-      - "SEQUENCER_HTTP_URL=https://bedrock-beta-1-sequencer.optimism.io"
+      - HISTORICAL_RPC_URL=http://op-l2geth.dappnode:8545
+      - SEQUENCER_HTTP_URL=https://bedrock-beta-1-sequencer.optimism.io
+      - ENABLE_HISTORICAL_RPC
     image: "geth.op-geth.dnp.dappnode.eth:0.1.0"
 volumes:
   data: {}
