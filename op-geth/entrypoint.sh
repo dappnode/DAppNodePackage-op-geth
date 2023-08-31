@@ -1,10 +1,8 @@
 #!/bin/sh
 
-# Configuration defined in https://community.optimism.io/docs/developers/bedrock/node-operator-guide/#configuring-op-geth
+DATA_DIR=/data
 
-# Genesis is hardcoded for mainnet and goerli, not needed here
-#echo "[INFO - entrypoint] Initializing Geth from genesis"
-#geth --datadir=/data init /config/genesis.json
+# Configuration defined in https://community.optimism.io/docs/developers/bedrock/node-operator-guide/#configuring-op-geth
 
 # Tx pool gossip is disabled as it is not supported yet
 # Max peers set to 0 to disable peer discovery (will be enabled in the future for snap sync)
@@ -18,10 +16,30 @@ else
   EXTRA_FLAGS="--gcmode full"
 fi
 
-mkdir -p preloaded-mainnet-data && wget -O /preloaded-mainnet-data/mainnet-bedrock.tar.zst https://datadirs.optimism.io/mainnet-bedrock.tar.zst
+# If $DATA_DIR is not empty, then geth is already initialized
+if [ "$(ls -A $DATA_DIR)" ]; then
+  echo "[INFO - entrypoint] Database already exists, skipping initialization"
+else
+  echo "[INFO - entrypoint] $DATA_DIR is empty, initializing geth..."
+
+  # If GENESIS_MODE is set to GenesisFile (non case sensitive), then geth will be initialized from it
+  if [ "$GENESIS_MODE" = "GenesisFile" ]; then
+    echo "[INFO - entrypoint] Initializing geth from genesis file"
+    geth --datadir=$DATA_DIR init /config/genesis.json
+  else
+    echo "[INFO - entrypoint] Initializing geth from preloaded data"
+    echo "[INFO - entrypoint] Downloading preloaded data from $PRELOADED_DATA_URL. This can take hours..."
+    mkdir -p $DATA_DIR
+    wget -O /preloaded-mainnet-data/mainnet-bedrock.tar.zst https://datadirs.optimism.io/mainnet-bedrock.tar.zst
+    echo "[INFO - entrypoint] Decompressing preloaded data. This can take a while..."
+    zstd -d --stdout /preloaded-mainnet-data/mainnet-bedrock.tar.zst | tar xvf - -C $DATA_DIR
+    rm -rf /preloaded-mainnet-data
+  fi
+
+fi
 
 echo "[INFO - entrypoint] Starting Geth"
-exec geth --datadir /data \
+exec geth --datadir $DATA_DIR \
   --rollup.historicalrpc $HISTORICAL_RPC_URL \
   --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
   --rollup.disabletxpoolgossip \
