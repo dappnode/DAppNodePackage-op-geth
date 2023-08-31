@@ -34,6 +34,7 @@ else
     echo "[INFO - entrypoint] Decompressing preloaded data. This can take a while..."
     zstd -d --stdout /preloaded-mainnet-data/mainnet-bedrock.tar.zst | tar xvf - -C $DATA_DIR
     rm -rf /preloaded-mainnet-data
+    EXTRA_FLAGS="--datadir.ancient $DATA_DIR/geth/chaindata/ancient"
   fi
 
 fi
