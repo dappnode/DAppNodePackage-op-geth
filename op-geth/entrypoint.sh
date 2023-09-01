@@ -41,7 +41,6 @@ fi
 
 echo "[INFO - entrypoint] Starting Geth"
 exec geth --datadir $DATA_DIR \
-  --rollup.historicalrpc $HISTORICAL_RPC_URL \
   --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
   --rollup.disabletxpoolgossip \
   --ws \
