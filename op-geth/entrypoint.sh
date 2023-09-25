@@ -1,6 +1,7 @@
 #!/bin/sh
 
 DATA_DIR=/data
+PRELOADED_DATA_FILE=/mainnet-bedrock.tar.zst
 
 # Configuration defined in https://community.optimism.io/docs/developers/bedrock/node-operator-guide/#configuring-op-geth
 
@@ -30,10 +31,10 @@ else
   echo "[INFO - entrypoint] $DATA_DIR is empty, initializing geth from preloaded data"
   echo "[INFO - entrypoint] Downloading preloaded data from $PRELOADED_DATA_URL. This can take hours..."
   mkdir -p $DATA_DIR
-  wget -O /preloaded-mainnet-data/mainnet-bedrock.tar.zst https://datadirs.optimism.io/mainnet-bedrock.tar.zst
+  wget -O $PRELOADED_DATA_FILE https://datadirs.optimism.io$PRELOADED_DATA_FILE
   echo "[INFO - entrypoint] Decompressing preloaded data. This can take a while..."
-  zstd -d --stdout /preloaded-mainnet-data/mainnet-bedrock.tar.zst | tar xvf - -C $DATA_DIR
-  rm -rf /preloaded-mainnet-data
+  zstd -d --stdout $PRELOADED_DATA_FILE | tar xvf - -C $DATA_DIR
+  rm -rf $PRELOADED_DATA_FILE
   EXTRA_FLAGS="--datadir.ancient $DATA_DIR/geth/chaindata/ancient"
 fi
 
