@@ -61,7 +61,7 @@ fi
 echo "[INFO - entrypoint] Starting Geth"
 exec geth --datadir $DATA_DIR \
   --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
-  --rollup.disabletxpoolgossip \
+  --rollup.disabletxpoolgossip true \
   --ws \
   --ws.port 8546 \
   --ws.addr 0.0.0.0 \
@@ -79,5 +79,5 @@ exec geth --datadir $DATA_DIR \
   --nodiscover \
   --maxpeers 0 \
   --syncmode full \
-  --networkid=10 \
+  --networkid 10 \
   ${EXTRA_FLAGS}
