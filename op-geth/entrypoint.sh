@@ -7,7 +7,6 @@ PRELOADED_DATA_FILE=/mainnet-bedrock.tar.zst
 
 # Tx pool gossip is disabled as it is not supported yet
 # Max peers set to 0 to disable peer discovery (will be enabled in the future for snap sync)
-# TODO: Should we add --http.api and --ws.api flags?
 
 if [ "$_DAPPNODE_GLOBAL_OP_ENABLE_HISTORICAL_RPC" = "true" ]; then
 
@@ -61,16 +60,18 @@ fi
 echo "[INFO - entrypoint] Starting Geth"
 exec geth --datadir $DATA_DIR \
   --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
-  --rollup.disabletxpoolgossip \
+  --rollup.disabletxpoolgossip true \
   --ws \
   --ws.port 8546 \
   --ws.addr 0.0.0.0 \
   --ws.origins "*" \
+  --ws.api net,web3,txpool,eth,debug,engine \
   --http \
   --http.port 8545 \
   --http.addr 0.0.0.0 \
   --http.vhosts "*" \
   --http.corsdomain "*" \
+  --http.api web3,net,eth,engine,txpool,debug \
   --authrpc.addr 0.0.0.0 \
   --authrpc.port 8551 \
   --authrpc.vhosts "*" \
@@ -79,5 +80,5 @@ exec geth --datadir $DATA_DIR \
   --nodiscover \
   --maxpeers 0 \
   --syncmode full \
-  --networkid=10 \
+  --networkid 10 \
   ${EXTRA_FLAGS}
