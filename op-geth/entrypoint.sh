@@ -78,6 +78,6 @@ exec geth --datadir $DATA_DIR \
   --verbosity 3 \
   --nodiscover \
   --maxpeers 0 \
-  --syncmode full \
+  --syncmode=snap \
   --networkid=10 \
   ${EXTRA_FLAGS}
