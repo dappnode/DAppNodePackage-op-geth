@@ -1,6 +1,7 @@
 #!/bin/sh
 
 DATA_DIR=/data
+DATA_DIR_DOWNLOAD_URL=https://datadirs.optimism.io/latest/
 PRELOADED_DATA_FILE=/mainnet-bedrock.tar.zst
 
 # Configuration defined in https://community.optimism.io/docs/developers/bedrock/node-operator-guide/#configuring-op-geth
@@ -29,7 +30,7 @@ if [ "$(ls -A $DATA_DIR)" ]; then
   echo "[INFO - entrypoint] Database already exists, skipping initialization"
 else
   echo "[INFO - entrypoint] $DATA_DIR is empty, initializing geth from preloaded data"
-  echo "[INFO - entrypoint] Downloading preloaded data from $PRELOADED_DATA_URL. This can take hours..."
+  echo "[INFO - entrypoint] Downloading preloaded data from $DATA_DIR_DOWNLOAD_URL. This can take hours..."
   mkdir -p $DATA_DIR
 
   # Before starting the download, check if a partial file exists.
@@ -39,7 +40,7 @@ else
   fi
 
   # Start the download.
-  wget -O $PRELOADED_DATA_FILE https://datadirs.optimism.io$PRELOADED_DATA_FILE
+  wget -O $PRELOADED_DATA_FILE $DATA_DIR_DOWNLOAD_URL
   if [ $? -ne 0 ]; then
     echo "[ERROR - entrypoint] Failed to download preloaded data."
     exit 1
