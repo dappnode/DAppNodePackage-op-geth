@@ -76,8 +76,7 @@ exec geth --datadir $DATA_DIR \
   --authrpc.vhosts "*" \
   --authrpc.jwtsecret /config/jwtsecret.hex \
   --verbosity 3 \
-  --nodiscover \
-  --maxpeers 0 \
   --syncmode=snap \
+  --port ${P2P_PORT} \
   --networkid=10 \
   ${EXTRA_FLAGS}
