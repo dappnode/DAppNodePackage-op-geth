@@ -6,17 +6,17 @@ services:
       args:
         UPSTREAM_VERSION: v1.101311.0
     volumes:
-      - data:/data
+      - "data:/data"
     restart: unless-stopped
     environment:
       - EXTRA_FLAGS
       - P2P_PORT=33142
       - SYNCMODE=snap
-      - HISTORICAL_RPC_URL=http://op-l2geth.dappnode:8545
-      - SEQUENCER_HTTP_URL=https://bedrock-beta-1-sequencer.optimism.io
-    image: geth.op-geth.dnp.dappnode.eth:0.1.0
+      - "HISTORICAL_RPC_URL=http://op-l2geth.dappnode:8545"
+      - "SEQUENCER_HTTP_URL=https://mainnet-sequencer.optimism.io/"
+    image: "geth.op-geth.dnp.dappnode.eth:0.1.1"
     ports:
-      - 33142:33142/tcp
-      - 33142:33142/udp
+      - "33142:33142/tcp"
+      - "33142:33142/udp"
 volumes:
   data: {}
