@@ -10,7 +10,8 @@ PRELOADED_DATA_FILE=/mainnet-bedrock.tar.zst
 # TODO: Should we add --http.api and --ws.api flags?
 
 echo "[INFO - entrypoint] Starting Geth"
-exec geth --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
+exec geth --datadir $DATA_DIR \
+  --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
   --rollup.disabletxpoolgossip \
   --ws \
   --ws.port 8546 \
@@ -29,4 +30,5 @@ exec geth --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
   --syncmode=snap \
   --port ${P2P_PORT} \
   --networkid=10 \
-  --op-network=op-mainnet
+  --op-network=op-mainnet \
+  ${EXTRA_FLAGS}
