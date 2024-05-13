@@ -74,5 +74,5 @@ exec geth --rollup.sequencerhttp $SEQUENCER_HTTP_URL \
   --verbosity 3 \
   --port ${P2P_PORT} \
   --networkid 10 \
-  --op-network=op-mainnet \
+  --op-network op-mainnet \
   ${EXTRA_FLAGS}
