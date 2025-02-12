@@ -4,7 +4,7 @@ services:
     build:
       context: op-geth
       args:
-        UPSTREAM_VERSION: v1.101411.6
+        UPSTREAM_VERSION: v1.101500.0
     volumes:
       - data:/data
     restart: unless-stopped
