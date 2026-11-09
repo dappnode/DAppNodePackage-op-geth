@@ -1,9 +1,13 @@
 {
   "name": "op-geth.dnp.dappnode.eth",
   "version": "0.1.2",
-  "upstreamVersion": "v1.101702.2",
-  "upstreamRepo": "ethereum-optimism/op-geth",
-  "upstreamArg": "UPSTREAM_VERSION",
+  "upstream": [
+    {
+      "repo": "ethereum-optimism/op-geth",
+      "version": "v1.101702.2",
+      "arg": "UPSTREAM_VERSION"
+    }
+  ],
   "shortDescription": "Geth execution client for Optimism",
   "description": "minimal fork of the official `go-ethereum` responsible for executing the blocks it receives from the rollup node and storing state. It also exposes standard JSON-RPC methods to query blockchain data and submit transactions to the network.",
   "type": "service",
